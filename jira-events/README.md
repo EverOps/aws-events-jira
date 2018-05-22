@@ -12,4 +12,4 @@ Generates and runs a docker container that executes python script to query nodes
   * JIRA_URL
 
 ### Usage
-docker run -it <image_name>
+`make run`
