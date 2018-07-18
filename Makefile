@@ -1,11 +1,13 @@
 build:
-	docker build -t davis/jira-events .
+	docker build -t everops/aws-jira-events .
 
 run: build
 	docker run \
+	-e AWS_PROFILE \
 	-e AWS_ACCESS_KEY_ID \
 	-e AWS_SECRET_ACCESS_KEY \
-	-e GITHUB_ACCESS_TOKEN \
-	-e VAULT_PATH \
 	-e JIRA_URL \
-	-ti davis/jira-events
+	-e JIRA_USERNAME \
+	-e JIRA_PASSWORD \
+	-v ~/.aws/:/root/.aws \
+	-ti everops/aws-jira-events

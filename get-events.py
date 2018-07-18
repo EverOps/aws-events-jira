@@ -16,7 +16,6 @@ def get_events():
     session = boto3.session.Session()
     ec2 = session.client('ec2',region_name='us-west-1')
 
-
     account_aliases = iam.list_account_aliases()['AccountAliases']
     
     regions = [region['RegionName'] for region in ec2.describe_regions()['Regions']]
@@ -58,25 +57,12 @@ def get_events():
 class JiraCLI:
 
     def __init__(self,
-        github_access_token=os.environ['GITHUB_ACCESS_TOKEN'],
-        vault_path=os.environ['VAULT_PATH'],
         jira_url=os.environ['JIRA_URL'],
-        vault_url=os.environ.get('VAULT_URL', 'https://integration.everops.com:8200')
+        jira_user=os.environ['JIRA_USERNAME'],
+        jira_pass=os.environ['JIRA_PASSWORD']
     ):
-        self.vault_client = hvac.Client(url=vault_url, verify=False)
         self.pp = pprint.PrettyPrinter(indent=4)
-        
-        self.vault_client.auth_github(github_access_token)
-        creds = self.vault_client.read(vault_path)
-        
-        if ('authType' not in creds['data']):
-            self.print_error("authType was not specified in credentials obtained from vault.\nOptions are \"basic\" or \"oauth\".")
-        elif (creds['data']['authType'] == "basic"):
-            self.jira = jira.JIRA(jira_url, basic_auth=(creds['data']['username'], creds['data']['password']))
-        elif (creds['data']['authType'] == "oauth"):
-            self.jira = jira.JIRA(self.jira_url, oauth=creds['data'])
-        else:
-            self.printError("authType specified is not valid. Must be \"basic\" or \"oauth\"")
+        self.jira = jira.JIRA(jira_url, basic_auth=(jira_user, jira_pass))
         
     def read(self, fields):
         for issueKey in fields['issues']:
@@ -102,23 +88,16 @@ class JiraCLI:
         if os.environ.get('JIRA_COMPONENT'):
             issue_dict['components'] = [{'name': os.environ.get('JIRA_COMPONENT')}]
         new_issue = self.jira.create_issue(fields=issue_dict)
-        # for issue in new_issue:
         print("Issue Key: " + new_issue.key)
 
     def search(self, jql):
         issue_list = []
         issues = self.jira.search_issues(jql)
-        # print("Printing results from jql statement: {}".format(jql))
         if issues:
             ticket_key=issues[0]
             return ticket_key
         else:
             pass
-
-    def print_error(self, errorString):
-        print(errorString, file = sys.stderr)
-        sys.exit(2)
-
   
 if __name__ == '__main__':
     cli = JiraCLI()
