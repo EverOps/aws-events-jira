@@ -11,3 +11,6 @@ run: build
 	-e JIRA_PASSWORD \
 	-v ~/.aws/:/root/.aws \
 	-ti everops/aws-jira-events
+
+push: build
+	docker push everops/aws-jira-events
