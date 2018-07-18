@@ -8,15 +8,15 @@ To run it locally, use the `Makefile`
 ```
 make run
 ```
-The `Makefile` will forward several environment variables `AWS_ACCESS_KEY_ID` and `GITHUB_ACCESS_TOKEN` into the container. 
-These evironment ariables are required to be set for this script.
+The `Makefile` will forward several environment variables `AWS_ACCESS_KEY_ID` and `JIRA_URL` into the container. 
+These evironment variables are required to be set for this script.
 
 ```
 AWS_ACCESS_KEY_ID - AWS Authentication, not needed if credentials are set via instance role or other.
 AWS_SECRET_ACCESS_KEY - AWS Authentication, not needed if credentials are set via instance role or other.
-GITHUB_ACCESS_TOKEN - A personal access token, used to authenticate to vault server.
-VAULT_PATH - Path where JIRA credentials are stored within vault
 JIRA_URL - The URL to JIRA. i.e https://everops.atlassian.net
+JIRA_USERNAME - The username to use when authenticating with JIRA
+JIRA_PASSWORD - The password to use when authenticating with JIRA
 ```
 
 ### Usage
