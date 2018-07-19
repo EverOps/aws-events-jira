@@ -102,7 +102,6 @@ class JiraCLI:
 if __name__ == '__main__':
     cli = JiraCLI()
     events = get_events()
-    # print(events)
     for event in events:
         print('Instance: %s %s %s' % (event.get('instance_name'), event.get('region'), event.get('account_aliases'))
         print('   Event Type: %s'   % (event.get('event_code'))
