@@ -6,9 +6,9 @@ run: build
 	-e AWS_PROFILE \
 	-e AWS_ACCESS_KEY_ID \
 	-e AWS_SECRET_ACCESS_KEY \
+	-e AWS_REGION \
 	-e JIRA_URL \
-	-e JIRA_USERNAME \
-	-e JIRA_PASSWORD \
+	-e AWS_ENV_PATH \
 	-v ~/.aws/:/root/.aws \
 	-ti everops/aws-jira-events
 
