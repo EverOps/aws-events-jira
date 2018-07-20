@@ -1,5 +1,5 @@
 build:
-	docker build -t everops/aws-jira-events .
+	docker build -t everops/aws-events-jira .
 
 run: build
 	docker run \
@@ -10,7 +10,7 @@ run: build
 	-e JIRA_URL \
 	-e AWS_ENV_PATH \
 	-v ~/.aws/:/root/.aws \
-	-ti everops/aws-jira-events
+	-ti everops/aws-events-jira
 
 push: build
-	docker push everops/aws-jira-events
+	docker push everops/aws-events-jira
