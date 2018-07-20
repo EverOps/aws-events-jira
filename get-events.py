@@ -103,8 +103,8 @@ if __name__ == '__main__':
     cli = JiraCLI()
     events = get_events()
     for event in events:
-        print('Instance: %s %s %s' % (event.get('instance_name'), event.get('region'), event.get('account_aliases'))
-        print('   Event Type: %s'   % (event.get('event_code'))
+        print('Instance: %s %s %s' % (event.get('instance_name'), event.get('region'), event.get('account_aliases')))
+        print('   Event Type: %s'   % (event.get('event_code')))
         print('   Event Description: %s' % (event.get('event_description')))
         print('   Date: %s' % (event.get('date')))
         jql = " (summary ~ 'Event*' AND summary ~ '%s' ) AND ( status = open OR status = 'IN PROGRESS' ) " % (event['instance_name'])
