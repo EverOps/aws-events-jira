@@ -105,13 +105,10 @@ if __name__ == '__main__':
     events = get_events()
     print(events)
     for event in events:
-<<<<<<< Updated upstream
-=======
         print('Instance: %s %s %s' % (event.get('instance_name'), event.get('region'), event.get('account_aliases')))
         print('   Event Type: %s'   % (event.get('event_code')))
         print('   Event Description: %s' % (event.get('event_description')))
         print('   Date: %s' % (event.get('date')))
->>>>>>> Stashed changes
         jql = " (summary ~ 'Event*' AND summary ~ '%s' ) AND ( status = open OR status = 'IN PROGRESS' ) " % (event['instance_name'])
         if cli.search(jql):
             tvalue = cli.search(jql)
