@@ -135,5 +135,5 @@ if __name__ == '__main__':
                 event['date'].strftime('%m/%d/%Y %H:%M:%S')
             )
             print("Creating a ticket for %s(%s)" % (event['instance_name'], event['instance_id']))
-            cli.create(project_id, project_key, summary, event_description, user_name, label)
+            cli.create(project_key, summary, event_description, user_name, label)
             print("\n")
