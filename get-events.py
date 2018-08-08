@@ -76,7 +76,7 @@ class JiraCLI:
                 return False
         return True
 
-    def create(self, project_id, project_key, summary, description, user_name, label, issue_type='Task'):
+    def create(self, project_key, summary, description, user_name, label, issue_type='Task'):
         issue_dict = {
             'project': {'key': project_key},
             'summary': summary,
@@ -114,7 +114,6 @@ if __name__ == '__main__':
             print("*Not creating a ticket as %s exists*\n" % (tvalue))
         else:
             summary = "AWS Event | %s | %s" % (','.join(event['account_aliases']), event['instance_name'])
-            project_id = os.environ.get('JIRA_PROJECT_ID')
             project_key = os.environ.get('JIRA_PROJECT_KEY')
             label = os.environ.get('JIRA_LABEL', 'aws_event')
             user_name = os.environ.get('JIRA_ASSIGNEE', '-1')
