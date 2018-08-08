@@ -10,8 +10,8 @@ run: build
 	-e JIRA_URL \
 	-e JIRA_USERNAME \
 	-e JIRA_PASSWORD \
-    -e JIRA_COMPONENT \
-    -e JIRA_ASSIGNEE \
+    	-e JIRA_COMPONENT \
+    	-e JIRA_ASSIGNEE \
 	-e JIRA_PROJECT_KEY \
 	-e AWS_ENV_PATH \
 	-v ~/.aws/:/root/.aws \
