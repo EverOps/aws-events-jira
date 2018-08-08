@@ -12,5 +12,5 @@ run: build
 	-v ~/.aws/:/root/.aws \
 	-ti everops/aws-jira-events
 
-push: build
-	docker push everops/aws-jira-events
+# push: build
+# 	docker push everops/aws-jira-events
