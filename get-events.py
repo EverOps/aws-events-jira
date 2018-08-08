@@ -76,10 +76,9 @@ class JiraCLI:
                 return False
         return True
 
-    def create(self, project_id, summary, description, user_name, label, issue_type='Task'):
+    def create(self, project_id, project_key, summary, description, user_name, label, issue_type='Task'):
         issue_dict = {
-            'project': {'id': project_id,'key': 'DEVOPS'},
-            'components': [{'name': 'aws_event'}],
+            'project': {'key': project_key},
             'summary': summary,
             'description': event_description,
             'issuetype': {'name': issue_type},
@@ -103,7 +102,7 @@ class JiraCLI:
 if __name__ == '__main__':
     cli = JiraCLI()
     events = get_events()
-    print(events)
+    print("\n")
     for event in events:
         print('Instance: %s %s %s' % (event.get('instance_name'), event.get('region'), event.get('account_aliases')))
         print('   Event Type: %s'   % (event.get('event_code')))
@@ -112,10 +111,11 @@ if __name__ == '__main__':
         jql = " (summary ~ 'Event*' AND summary ~ '%s' ) AND ( status = open OR status = 'IN PROGRESS' ) " % (event['instance_name'])
         if cli.search(jql):
             tvalue = cli.search(jql)
-            print("Not creating a ticket as %s exists" % (tvalue))
+            print("*Not creating a ticket as %s exists*\n" % (tvalue))
         else:
             summary = "AWS Event | %s | %s" % (','.join(event['account_aliases']), event['instance_name'])
             project_id = os.environ.get('JIRA_PROJECT_ID')
+            project_key = os.environ.get('JIRA_PROJECT_KEY')
             label = os.environ.get('JIRA_LABEL', 'aws_event')
             user_name = os.environ.get('JIRA_ASSIGNEE', '-1')
             event_description = """
@@ -136,4 +136,5 @@ if __name__ == '__main__':
                 event['date'].strftime('%m/%d/%Y %H:%M:%S')
             )
             print("Creating a ticket for %s(%s)" % (event['instance_name'], event['instance_id']))
-            cli.create(project_id, summary, event_description, user_name, label)
+            cli.create(project_id, project_key, summary, event_description, user_name, label)
+            print("\n")

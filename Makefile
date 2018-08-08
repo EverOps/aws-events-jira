@@ -9,8 +9,11 @@ run: build
 	-e JIRA_URL \
 	-e JIRA_USERNAME \
 	-e JIRA_PASSWORD \
+        -e JIRA_COMPONENT \
+        -e JIRA_ASSIGNEE \
+	-e JIRA_PROJECT_KEY \
 	-v ~/.aws/:/root/.aws \
 	-ti everops/aws-jira-events
 
- push: build
- 	docker push everops/aws-jira-events
+push: build
+	docker push everops/aws-jira-events
